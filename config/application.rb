@@ -10,10 +10,6 @@ Bundler.require(*Rails.groups)
 
 module BeAssignmentJunior1
   class Application < Rails::Application
-    RSpec.configure do |config|
-      config.include Devise::Test::ControllerHelpers, type: :controller
-    end
-
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 6.1
 
