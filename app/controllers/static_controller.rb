@@ -13,7 +13,6 @@ class StaticController < ApplicationController
 
   def person
     @id = params[:id]
-    @expenses = current_user.expenses
-    @expense_participants = current_user.expense_participants.where(expense_id: @expenses.pluck(:id)).where.not(user_id: @id)
+    @expenses = Expense.where(user_id: @id)
   end
 end
