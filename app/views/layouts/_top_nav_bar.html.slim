@@ -12,6 +12,9 @@ header
                 | Account
               ul.dropdown-menu.dropdown-menu-dark aria-labelledby="navbarDarkDropdownMenuLink" 
                 li
+                  - if user_signed_in?  # Assuming a Rails environment
+                    li.dropdown-item
+                      | #{current_user.name}
                   = link_to destroy_user_session_path, method: :delete, class: 'dropdown-item'
                     .icon-logout.font-size-20.mr-4
                     | Logout
