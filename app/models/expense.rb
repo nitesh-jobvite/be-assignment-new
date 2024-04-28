@@ -21,7 +21,7 @@ class Expense < ApplicationRecord
 
   def calculate_amount_paid(participant_id, participant_count)
     total_amount = self.total_amount + self.tax_amount.to_f
-    shared_amount = total_amount / (participant_count + 1)
+    shared_amount = total_amount / participant_count
     shared_amount
   end
 end
