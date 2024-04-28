@@ -1,0 +1,8 @@
+#settlementModal.modal.fade aria-hidden="true" aria-labelledby="settlementModalLabel" tabindex="-1"
+  .modal-dialog
+    .modal-content
+      .modal-header
+        h5.modal-title Settlement Modal
+        button.btn-close type="button" data-bs-dismiss="modal" aria-label="Close"
+      .modal-body
+        == render 'transactions/form', transaction: @transaction, users: @friends

@@ -2,48 +2,27 @@
   aside.side-bar-area
     .friends-list
       p.friends-list-header FRIENDS
-      a.friend-name anbu
-      a.friend-name barath
+      - if @friends.present?
+        - @friends.each do |friend|
+          a(href="/people/#{friend.id}")= get_name(friend.id)
+          br
   .main-area
     .top-bar
       h1.top-bar-title Dashboard
       .top-bar-actions
         button.btn.btn-primary type="button"  Add an expense
         button.btn.btn-secondary type="button"  Settle up
-    .expenses-list
-      .expense-item
-        .item-lhs
-          p SEP 30
-          p Hello
-        .item-rhs
-          .you-details
-            p you paid
-            p $23.00
-          .you-details
-            p you lent anbu
-            p $11.50
-        button.remove-btn ❌
-      .expense-item
-        .item-lhs
-          p SEP 30
-          p Hello
-        .item-rhs
-          .you-details
-            p you paid
-            p $23.00
-          .you-details
-            p you lent anbu
-            p $11.50
-        button.remove-btn ❌
-      .expense-item
-        .item-lhs
-          p SEP 30
-          p Hello
-        .item-rhs
-          .you-details
-            p you paid
-            p $23.00
-          .you-details
-            p you lent anbu
-            p $11.50
-        button.remove-btn ❌
+    table.expenses-table(style="width: 100%; border-collapse: collapse; border: 1px solid #ddd;")
+      thead
+        tr
+          th(style="border: 1px solid #ddd; padding: 8px;") Date
+          th(style="border: 1px solid #ddd; padding: 8px;") Description
+          th(style="border: 1px solid #ddd; padding: 8px;") Paid by
+          th(style="border: 1px solid #ddd; padding: 8px;") Borrowed/Lent
+      tbody
+        - @expenses.each do |expense|
+          tr
+            td(style="border: 1px solid #ddd; padding: 8px;") = expense.created_at.to_date
+            td(style="border: 1px solid #ddd; padding: 8px;") = expense.description
+            td(style="border: 1px solid #ddd; padding: 8px;") = get_name(expense.user_id)
+            td(style="border: 1px solid #ddd; padding: 8px;" colspan="2") = expense.user_id == current_user.id ? "Lent" : "Borrowed"

@@ -1,0 +1,19 @@
+= form_with(model: transaction, url: transactions_path) do |form|
+  .modal-body
+    .form-group.row
+      = form.label :receiver_id, "Receiver", class: "col-sm-3 col-form-label"
+      .col-sm-9
+        = form.select :receiver_id, options_for_select(users.map { |user| [user.name, user.id] }), {}, class: "form-control"
+
+    .form-group.row
+      = form.label :amount, class: "col-sm-3 col-form-label"
+      .col-sm-9
+        = form.number_field :amount, class: "form-control"
+
+    .form-group.row
+      = form.label :notes, class: "col-sm-3 col-form-label"
+      .col-sm-9
+        = form.text_area :notes, class: "form-control"
+
+  .modal-footer
+    = form.submit "Settle Debt", class: "btn btn-primary"

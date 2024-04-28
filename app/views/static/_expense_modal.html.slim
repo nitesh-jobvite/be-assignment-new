@@ -1,0 +1,44 @@
+#expenseModal.modal.fade aria-hidden="true" aria-labelledby="expenseModalLabel" tabindex="-1" 
+  .modal-dialog
+    .modal-content
+      .modal-header
+        h5#expenseModalLabel.modal-title Add an expense
+        button.btn-close aria-label="Close" data-bs-dismiss="modal" type="button" 
+      .modal-body
+      = form_with(model: @expense, url: expenses_path, class: "form-horizontal") do |form|
+        .form-group.row
+          = form.label :total_amount, "Total Amount", class: "col-sm-3 col-form-label text-sm-end"
+          .col-sm-9
+            = form.text_field :total_amount, class: "form-control"
+          br
+
+        .form-group.row
+          = form.label :description, "Description", class: "col-sm-3 col-form-label text-sm-end"
+          .col-sm-9
+            = form.text_area :description, class: "form-control"
+          br
+
+        .form-group.row
+          = form.label :user_id, "Person who made the expense", class: "col-sm-3 col-form-label text-sm-end"
+          .col-sm-9
+            = form.collection_select :user_id, @users, :id, :name, { include_blank: "Select user" }, class: "form-control", id: "expense_user_id"
+          br
+
+        .form-group.row
+          = form.label :participant_ids, "Others who were part of it", class: "col-sm-3 col-form-label text-sm-end"
+          .col-sm-9
+            = form.collection_select :participant_ids, @users, :id, :name, {}, multiple: true, id: 'category-select', class: "dropdown" , id: "expense_participant_ids"
+          br
+
+        .form-group.row
+          = form.label :tax_amount, "Tax amount", class: "col-sm-3 col-form-label text-sm-end"
+          .col-sm-9
+            = form.text_field :tax_amount, class: "form-control"
+          br
+
+        .form-group.row
+          .col-sm-9.offset-sm-3
+            = form.submit "Add Expense", class: "btn btn-primary"
+
+      .modal-footer
+        button.btn.btn-secondary data-bs-dismiss="modal" type="button"  Close

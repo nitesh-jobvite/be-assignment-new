@@ -14,9 +14,13 @@ gem 'simple_form'
 gem 'slim-rails'
 gem 'turbolinks', '~> 5'
 gem 'webpacker', '~> 5.0'
+gem 'bootstrap-sass', '~> 3.3', '>= 3.3.6'
+gem 'awesome_print', '~> 1.8'
 
 group :development, :test do
+  gem 'rspec-rails', '~> 6.1', '>= 6.1.2'
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'factory_bot_rails'
 end
 
 group :development do
