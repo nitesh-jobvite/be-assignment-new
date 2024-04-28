@@ -7,8 +7,8 @@ class StaticController < ApplicationController
     @total_balance = current_user.total_balance
     @friends = Expense.friends_for_user(current_user.id)
     @expenses = current_user.expenses
-    @expense_participants_owes_you = ExpenseParticipant.owes_you(@current_user)
-    @expense_participants_you_owe = ExpenseParticipant.you_owe(@current_user)
+    @expense_participants_owes_you = ExpenseParticipant.owes_you(current_user)
+    @expense_participants_you_owe = ExpenseParticipant.you_owe(current_user)
   end
 
   def person
