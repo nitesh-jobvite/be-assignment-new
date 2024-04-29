@@ -6,6 +6,7 @@ class User < ApplicationRecord
   has_many :expenses
   has_many :transactions, foreign_key: :payer_id
   has_many :received_transactions, class_name: "Transaction", foreign_key: :receiver_id
+  has_many :paid_transactions, class_name: "Transaction", foreign_key: :payer_id
   has_many :expense_participants
 
   def amount_owed_to_you
@@ -20,7 +21,8 @@ class User < ApplicationRecord
   end
 
   def amount_you_owe
-    amount_paid_by_others = received_transactions.sum(:amount)
+    byebug
+    amount_paid_by_others = paid_transactions.sum(:amount)
     expense_participants_you_owes = expense_participants.where(expense_type: "borrower")
     amount_you_owe_from_expenses = expense_participants_you_owes.sum(:amount_paid)
 
