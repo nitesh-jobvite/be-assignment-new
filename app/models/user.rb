@@ -10,10 +10,12 @@ class User < ApplicationRecord
   has_many :expense_participants
 
   def amount_owed_to_you # you are owed
+    byebug
     amount_paid_by_others = received_transactions.sum(:amount)
     expenses = Expense.where(user_id: id)
     expense_participants_owes_you = ExpenseParticipant.where(expense_id: expenses.pluck(:id)).where.not(user_id: id)
     amount_owed_from_expenses = expense_participants_owes_you.sum(:amount_paid)
+    amount_owed_to_you = amount_owed_from_expenses - amount_paid_by_others
   end
 
   def amount_you_owe # you owe
