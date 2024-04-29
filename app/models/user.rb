@@ -9,24 +9,19 @@ class User < ApplicationRecord
   has_many :paid_transactions, class_name: "Transaction", foreign_key: :payer_id
   has_many :expense_participants
 
-  def amount_owed_to_you
+  def amount_owed_to_you # you are owed
     amount_paid_by_others = received_transactions.sum(:amount)
     expenses = Expense.where(user_id: id)
     expense_participants_owes_you = ExpenseParticipant.where(expense_id: expenses.pluck(:id)).where.not(user_id: id)
     amount_owed_from_expenses = expense_participants_owes_you.sum(:amount_paid)
-
-    amount_paid_to_others = transactions.sum(:amount)
-
-    amount_paid_to_others + amount_owed_from_expenses
   end
 
-  def amount_you_owe
-    byebug
+  def amount_you_owe # you owe
     amount_paid_by_others = paid_transactions.sum(:amount)
     expense_participants_you_owes = expense_participants.where(expense_type: "borrower")
     amount_you_owe_from_expenses = expense_participants_you_owes.sum(:amount_paid)
 
-    amount_you_owe_from_expenses + amount_paid_by_others
+    amount_you_owe_from_expenses - amount_paid_by_others
   end
 
   def total_balance
