@@ -44,6 +44,17 @@
                 .user-info
                   p #{get_name(participant[:user_id])}
                   p $#{participant[:amount_paid]}
+.dashboard-wrapper
+  aside.side-bar-area
+  .main-area
+    .top-bar
+      h2.top-bar-title Settlements
+    - @transactions.each_with_index do |transaction, index|
+      - if transaction.payer_id == current_user.id
+        p= "#{index + 1} - You paid #{get_name(transaction.receiver_id)} $#{transaction.amount}"
+      - else
+        p= "#{index + 1} - #{get_name(transaction.payer_id)} paid you $#{transaction.amount}"
+        br
 
 == render 'expense_modal'
 == render 'settlement_modal'
